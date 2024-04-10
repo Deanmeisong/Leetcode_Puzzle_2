@@ -11,48 +11,45 @@
  */
 class Solution {
 public:
-    unordered_map<int,TreeNode*> val2root;
-    unordered_set<int> visited;
-    unordered_set<int> nodeVals;
+    unordered_map<int, TreeNode*> val2root;
+    unordered_set<int> leafs;
+    unordered_set<int> roots;
+    
     void find(TreeNode* node) {
-        if(node == nullptr) return;
-        nodeVals.insert(node->val);
-        find(node->left);
-        find(node->right);
+        if(node == NULL) return;
+        leafs.insert(node->val);
+        find(node->left); find(node->right);
     }
+    
     TreeNode* canMerge(vector<TreeNode*>& trees) {
         int n = trees.size();
         for(int i = 0; i < n; ++i) {
             val2root[trees[i]->val] = trees[i];
             find(trees[i]->left); find(trees[i]->right);
         }
+        TreeNode* rt;
         int count = 0;
-        TreeNode* root;
         for(int i = 0; i < n; ++i) {
-            if(nodeVals.find(trees[i]->val) == nodeVals.end()) {
-                root = trees[i];
+            if(leafs.find(trees[i]->val) == leafs.end()) {
+                rt = trees[i];
                 ++count;
             }
         }
         if(count != 1) return NULL;
-        visited.insert(root->val);
-        bool ok = dfs(root, INT_MIN, INT_MAX);
-        if(ok && visited.size() == n) return root;
+        roots.insert(rt->val);
+        if(dfs(rt, INT_MIN, INT_MAX) && roots.size() == n) return rt;
         else return NULL;
     }
     
     bool dfs(TreeNode*& node, int mn, int mx) {
         if(node == NULL) return true;
-        if(node->val < mn || node->val > mx) return false;
-        if(node->left || node->right) {
-            return dfs(node->left, mn, node->val-1) && dfs(node->right, node->val+1, mx);
-        }
-        else if (val2root.find(node->val)!=val2root.end())
-        {
-            node = val2root[node->val];
-            visited.insert(node->val);
-            return dfs(node->left, mn, node->val - 1) && dfs(node->right, node->val+1, mx);
-        }
-        return true;
+        int val = node->val;
+        if(val < mn || val > mx) return false;
+        if(node->left || node->right) return dfs(node->left, mn, val-1) && dfs(node->right, val+1, mx);
+        else if(val2root.find(val) != val2root.end()) {
+            node = val2root[val];
+            roots.insert(val);
+            return dfs(node->left, mn, val-1) && dfs(node->right, val+1, mx);
+        } else return true;
     }
 };
