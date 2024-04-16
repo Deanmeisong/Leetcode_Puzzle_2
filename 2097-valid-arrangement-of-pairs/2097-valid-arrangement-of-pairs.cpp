@@ -6,10 +6,10 @@ class Solution {
 public:
     vector<vector<int>> validArrangement(vector<vector<int>>& pairs) 
     {
-        int m = pairs.size();
-        Map.reserve(m);
-		in.reserve(m);
-		out.reserve(m);
+		// int m = pairs.size();
+		// Map.reserve(m);
+		// in.reserve(m);
+		// out.reserve(m);
         for (auto pair: pairs)
         {
             Map[pair[0]].push_back(pair[1]);
