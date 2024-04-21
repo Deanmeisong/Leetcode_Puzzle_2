@@ -36,6 +36,6 @@ public:
         sort(temp.rbegin(), temp.rend());
         if(temp.size() >= 2) global = max(global, temp[0]+temp[1]+1);
         else if(temp.size() == 1) global = max(global, temp[0]+1);
-        else global = max(global, 1);
+        // else global = max(global, 1);
     }
 };
