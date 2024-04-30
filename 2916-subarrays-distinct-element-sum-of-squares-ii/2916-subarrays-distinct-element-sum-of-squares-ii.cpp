@@ -60,8 +60,8 @@ class SegTreeNode
         if (left)
         {            
             pushDown();
-            left->updateRangeBy(a, b, val+delta);
-            right->updateRangeBy(a, b, val+delta);
+            left->updateRangeBy(a, b, val);
+            right->updateRangeBy(a, b, val);
             delta = 0;
             tag = 0;
             info = left->info + right->info;  // write your own logic            
