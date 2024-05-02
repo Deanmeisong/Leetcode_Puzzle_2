@@ -7,7 +7,7 @@ public:
             queries[i].push_back(i);
         }
         
-        sort(queries.begin(), queries.end(), [](auto a, auto b){return a[1] > b[1];});
+        sort(queries.begin(), queries.end(), [](auto& a, auto& b){return a[1] > b[1];});
         
         map<int, int> Map;
         vector<int> rets(queries.size());
