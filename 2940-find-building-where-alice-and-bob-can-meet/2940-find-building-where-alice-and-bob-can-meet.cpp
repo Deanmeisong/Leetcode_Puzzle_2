@@ -13,7 +13,7 @@ public:
         vector<int> rets(queries.size());
         int i = n - 1;
         
-        for(auto q : queries) {
+        for(auto& q : queries) {
             int a = q[0], b = q[1], idx = q[2];
             while(i >= b) {
                 while(!Map.empty() && Map.begin()->first <= heights[i]) Map.erase(Map.begin());
