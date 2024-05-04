@@ -40,10 +40,10 @@ public:
         }
         int count_diff = 0;
         vector<PII> Union;
-        for(auto x : cross) Union.push_back(x);
-        for(auto x : A) Union.push_back(x);
-        for(auto x : B) Union.push_back(x);
-        for(auto [s, e] : Union) count_diff += diff[e] - diff[s-1];
+        for(auto& x : cross) Union.push_back(x);
+        for(auto& x : A) Union.push_back(x);
+        for(auto& x : B) Union.push_back(x);
+        for(auto& [s, e] : Union) count_diff += diff[e] - diff[s-1];
         if(count_diff != diff[m]) return false;      
         vector<int> count1(26); vector<int> count2(26);
         
@@ -53,8 +53,8 @@ public:
         }
         
         for(int ch = 0; ch < 26; ++ ch) {
-            for(auto [s, e] : A) count1[ch] -= presum2[e][ch] - presum2[s-1][ch];
-            for(auto [s, e] : B) count2[ch] -= presum1[e][ch] - presum1[s-1][ch];
+            for(auto& [s, e] : A) count1[ch] -= presum2[e][ch] - presum2[s-1][ch];
+            for(auto& [s, e] : B) count2[ch] -= presum1[e][ch] - presum1[s-1][ch];
             if(count1[ch] < 0 || count2[ch] < 0) return false;
         }
         
