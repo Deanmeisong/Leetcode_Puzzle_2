@@ -7,8 +7,7 @@ public:
         while(j < n && s[i] == s[j]) ++j;
         while(s[i] == s[n-i-1]) {
             if(j == n) return "-1";
-            swap(s[i], s[j]);
-            ++i; ++j;
+            swap(s[i++], s[j++]);
         }
         return s;
     }
