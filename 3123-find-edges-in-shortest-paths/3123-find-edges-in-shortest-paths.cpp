@@ -1,62 +1,68 @@
 using PII = pair<int,int>;
-
 class Solution {
-    vector<PII>next[50005];
 public:
-    vector<bool> findAnswer(int n, vector<vector<int>>& edges) 
-    {
-        int m = edges.size();
-        vector<bool>rets(m, false);
-        
-        for (auto& edge : edges)
-        {
-            int a = edge[0], b = edge[1], w = edge[2];
+    vector<PII> next[50005];
+    vector<bool> findAnswer(int n, vector<vector<int>>& edges) {
+        for(const auto& e : edges) {
+            int a = e[0], b = e[1], w = e[2];
             next[a].push_back({b,w});
             next[b].push_back({a,w});
         }
         
-        priority_queue<PII, vector<PII>, greater<>>pq;
+        vector<int> dist1(n, INT_MAX/3);
+        priority_queue<PII, vector<PII>, greater<>> pq;
+        pq.push({0,0});
+//         while(!pq.empty()) {
+//             auto [d, cur] = pq.top(); pq.pop();
+//             if(dist1[cur] == INT_MAX/3) dist1[cur] = d;
+//             for(auto[nxt, w] : next[cur]) 
+//                 if(dist1[nxt] == INT_MAX/3) pq.push({w+d, nxt});
+//         }
         
-        pq.push({0, 0});        
-        vector<int>d1(n, INT_MAX/3);
+//         vector<int> dist2(n, INT_MAX/3);
+//         pq.push({0,n-1});
+//         while(!pq.empty()) {
+//             auto [d, cur] = pq.top(); pq.pop();
+//             if(dist2[cur] == INT_MAX/3) dist2[cur] = d;
+//             for(auto[nxt, w] : next[cur]) 
+//                 if(dist2[nxt] == INT_MAX/3) pq.push({w+d, nxt});
+//         }
+        
         while (!pq.empty()) 
         {
             auto [dist, cur] = pq.top();
             pq.pop();
-            if (d1[cur]!= INT_MAX/3) continue;
-            d1[cur] = dist;                
+            if (dist1[cur]!= INT_MAX/3) continue;
+            dist1[cur] = dist;                
 
             for (auto [nxt, len]: next[cur])
             {
-                if (d1[nxt]!= INT_MAX/3) continue;                
+                if (dist1[nxt]!= INT_MAX/3) continue;                
                 pq.push({dist + len, nxt});
             }
         }
         
         pq.push({0, n-1});        
-        vector<int>d2(n, INT_MAX/3);
+        vector<int>dist2(n, INT_MAX/3);
         while (!pq.empty()) 
         {
             auto [dist, cur] = pq.top();
             pq.pop();
-            if (d2[cur]!= INT_MAX/3) continue;
-            d2[cur] = dist;
+            if (dist2[cur]!= INT_MAX/3) continue;
+            dist2[cur] = dist;
 
             for (auto [nxt, len]: next[cur])
             {
-                if (d2[nxt]!= INT_MAX/3) continue;                
+                if (dist2[nxt]!= INT_MAX/3) continue;                
                 pq.push({dist + len, nxt});
             }
         }
-
-        for (int i=0; i<m; i++)
-        {
-            auto& edge = edges[i];
-            int a = edge[0], b = edge[1], w = edge[2];
-            if (d1[a]+w+d2[b]==d1[n-1] || d1[b]+w+d2[a]==d1[n-1])
-                rets[i] = true;
+        int m = edges.size();
+        vector<bool> rets(m, false);
+        for(int i = 0; i < m; ++i) {
+            int a = edges[i][0], b = edges[i][1], w = edges[i][2];
+            if(dist1[a] + w + dist2[b] == dist1[n-1] || dist1[b] + w + dist2[a] == dist1[n-1]) rets[i] = true;
         }
-                
-        return rets;        
+        return rets;
     }
 };
