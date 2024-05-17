@@ -12,12 +12,12 @@ public:
         vector<int> dist1(n, INT_MAX/3);
         priority_queue<PII, vector<PII>, greater<>> pq;
         pq.push({0,0});
-//         while(!pq.empty()) {
-//             auto [d, cur] = pq.top(); pq.pop();
-//             if(dist1[cur] == INT_MAX/3) dist1[cur] = d;
-//             for(auto[nxt, w] : next[cur]) 
-//                 if(dist1[nxt] == INT_MAX/3) pq.push({w+d, nxt});
-//         }
+        while(!pq.empty()) {
+            auto [d, cur] = pq.top(); pq.pop();
+            if(dist1[cur] == INT_MAX/3) dist1[cur] = d;
+            for(auto[nxt, w] : next[cur]) 
+                if(dist1[nxt] == INT_MAX/3) pq.push({w+d, nxt});
+        }
         
 //         vector<int> dist2(n, INT_MAX/3);
 //         pq.push({0,n-1});
@@ -28,19 +28,19 @@ public:
 //                 if(dist2[nxt] == INT_MAX/3) pq.push({w+d, nxt});
 //         }
         
-        while (!pq.empty()) 
-        {
-            auto [dist, cur] = pq.top();
-            pq.pop();
-            if (dist1[cur]!= INT_MAX/3) continue;
-            dist1[cur] = dist;                
+//         while (!pq.empty()) 
+//         {
+//             auto [dist, cur] = pq.top();
+//             pq.pop();
+//             if (dist1[cur]!= INT_MAX/3) continue;
+//             dist1[cur] = dist;                
 
-            for (auto [nxt, len]: next[cur])
-            {
-                if (dist1[nxt]!= INT_MAX/3) continue;                
-                pq.push({dist + len, nxt});
-            }
-        }
+//             for (auto [nxt, len]: next[cur])
+//             {
+//                 if (dist1[nxt]!= INT_MAX/3) continue;                
+//                 pq.push({dist + len, nxt});
+//             }
+//         }
         
         pq.push({0, n-1});        
         vector<int>dist2(n, INT_MAX/3);
