@@ -8,12 +8,12 @@ public:
                 if((state>>i)&1) dp[i][i] = 0;
             for(const auto& road : roads) {
                 int a = road[0], b = road[1], w = road[2];
-                if((state>>a)&1==0) continue;
-                if((state>>b)&1==0) continue;
+                if((state>>a)&1^1) continue;
+                if((state>>b)&1^1) continue;
                 for(int i = 0; i < n; ++i) {
-                    if((state>>i)&1==0) continue;
+                    if((state>>i)&1^1) continue;
                     for(int j = 0; j < n; ++j) {
-                        if((state>>j)&1==0) continue;
+                        if((state>>j)&1^1) continue;
                         dp[i][j] = min(dp[i][j], dp[i][a] + w + dp[b][j]);
                         dp[i][j] = min(dp[i][j], dp[i][b] + w + dp[a][j]);
                     }
@@ -21,9 +21,9 @@ public:
             }
             int flag = 0;
             for(int i = 0; i < n; ++i) {
-                if(((state>>i)&1)==0) continue;
+                if(((state>>i)&1)^1) continue;
                 for(int j = 0; j < n; ++j) {
-                    if(((state>>j)&1)==0) continue;
+                    if(((state>>j)&1)^1) continue;
                     if(dp[i][j] > maxDistance) {
                         flag = 1;
                         break;
@@ -31,7 +31,7 @@ public:
                     if(flag) break;
                 }
             }
-            if(flag == 0) ++ret;
+            ret += (flag^1);
             
         }
         return ret;
