@@ -58,7 +58,7 @@ public:
             }
         }
         
-        for(int i = 0; i < N; ++i)
+        for(int i = 1; i < N; ++i)
             if(FindFather(i) != FindFather(0)) return false;
         return true;
     }
