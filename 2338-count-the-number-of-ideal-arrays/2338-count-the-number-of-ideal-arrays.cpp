@@ -14,8 +14,8 @@ public:
         vector<int> primes = getPrimes(maxValue);
 
         
-        LL ret = 0;
-        for(int t = 1; t <= maxValue; ++t) {
+        LL ret = 1;
+        for(int t = 2; t <= maxValue; ++t) {
             int x = t;
             LL ans = 1;
             for(int p : primes) {
