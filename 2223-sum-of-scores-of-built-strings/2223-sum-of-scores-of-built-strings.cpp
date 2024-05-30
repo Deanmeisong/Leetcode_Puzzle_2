@@ -1,14 +1,15 @@
 class Solution {
 public:
     vector<int> z(string s){
-        vector<int> z(s.length());
+        int n = s.size();
+        vector<int> z(n);
         int l = 0, r = 1;
-        for(int i = 1; i < s.length(); ++i) {
+        for(int i=1; i < n; ++i) {
             z[i] = i > r ? 0 : min(z[i-l], r-i);
-            while (i + z[i] < s.size() && s[z[i]] == s[z[i] + i]) ++z[i];
-            if(z[i] + i > r) {
+            while(z[i]+i < n && s[z[i]] == s[z[i]+i]) ++z[i];
+            if(z[i]+i>r) {
                 l = i;
-                r = i + z[i];
+                r = z[i] +i;
             }
         }
         return z;
