@@ -1,21 +1,20 @@
 class Solution {
 public:
-    vector<int> kmp(string s) {
-        int n = s.length();
-        vector<int> dp(n);
-        dp[0] = 0;
-        for(int i = 1; i < n; ++i) {
-            int j = dp[i-1];
-            while(j && s[j] != s[i]) j = dp[j-1];
-            dp[i] = j + (s[i] == s[j]);
+    vector<int> z(string s){
+        vector<int> z(s.length());
+        int l = 0, r = 1;
+        for(int i = 1; i < s.length(); ++i) {
+            z[i] = i > r ? 0 : min(z[i-l], r-i);
+            while (i + z[i] < s.size() && s[z[i]] == s[z[i] + i]) ++z[i];
+            if(z[i] + i > r) {
+                l = i;
+                r = i + z[i];
+            }
         }
-        return dp;
+        return z;
     }
     long long sumScores(string s) {
-        vector<int> cnt;
-        for(int x :kmp(s)) {
-            cnt.push_back(x == 0 ? 0 : cnt[x-1] + 1);
-        }
-        return accumulate(cnt.begin(), cnt.end(), 0LL) + s.length();
+        vector<int> cnt = z(s);
+        return accumulate(cnt.begin(), cnt.end(), 0LL) + s.size();
     }
 };
