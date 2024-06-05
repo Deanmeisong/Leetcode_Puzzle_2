@@ -23,7 +23,7 @@ public:
             else edges2.push_back(e);
         for(int i = 0; i < n; ++i)
             Father[i] = i;
-        int count0 = 0;
+        int count0 = 1;
         for(const auto& e : edges0) {
             int a = e[1], b = e[2];
             if(findFather(a) != findFather(b)) {
@@ -40,7 +40,7 @@ public:
                 ++count1;
             }
         }
-        if(count1 + count0 != n-1) return -1;
+        if(count1 + count0 != n) return -1;
         memcpy(Father, Father0, sizeof(Father0));
         int count2 = 0;
         for(const auto& e : edges2) {
@@ -50,7 +50,7 @@ public:
                 ++count2;
             }
         }
-        if(count2 + count0 != n-1) return -1;
-        return edges0.size() + edges1.size() + edges2.size() - (count1 + count2 + count0);
+        if(count2 + count0 != n) return -1;
+        return edges0.size() + edges1.size() + edges2.size() - (count1 + count2 + count0 - 1);
     }
 };
