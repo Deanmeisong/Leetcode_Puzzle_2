@@ -51,6 +51,6 @@ public:
             }
         }
         if(count2 + count0 != n-1) return -1;
-        return edges.size() - (count1 + count2 + count0);
+        return edges0.size() + edges1.size() + edges2.size() - (count1 + count2 + count0);
     }
 };
