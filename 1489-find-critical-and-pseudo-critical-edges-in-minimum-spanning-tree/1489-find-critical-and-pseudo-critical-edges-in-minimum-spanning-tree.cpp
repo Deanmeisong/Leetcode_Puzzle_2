@@ -51,15 +51,13 @@ public:
             auto edge = edges[i];
             edges.insert(edges.begin(), edge);    
             int wt = mst(n, edges, -1);
-            if (wt == minWt) Set2.insert(edge[3]);            
+            if (wt == minWt && Set1.find(edge[3]) == Set1.end()) Set2.insert(edge[3]);            
             edges.erase(edges.begin());
         }
 
-        
         vector<int> ret1(Set1.begin(), Set1.end());
-        vector<int> ret2;
-        for(int x : Set2)
-            if(Set1.find(x) == Set1.end()) ret2.push_back(x);
+        vector<int> ret2(Set2.begin(), Set2.end());
+    
         return {ret1, ret2};
         
     }
