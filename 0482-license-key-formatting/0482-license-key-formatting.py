@@ -1,10 +1,5 @@
-class Solution(object):
-    def licenseKeyFormatting(self, s, k):
-        """
-        :type s: str
-        :type k: int
-        :rtype: str
-        """
+class Solution:
+    def licenseKeyFormatting(self, s: str, k: int) -> str:
         sb = []
         for i in range(len(s)-1, -1, -1):
             if s[i] != '-':
