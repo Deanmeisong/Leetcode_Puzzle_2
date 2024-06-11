@@ -1,4 +1,5 @@
 import random
+
 class Node:
     def __init__(self, val=-1, right=None, down=None):
         self.val = val
@@ -6,11 +7,10 @@ class Node:
         self.down = down
 
 class Skiplist:
-
     def __init__(self):
         self.head = Node()
 
-    def search(self, target: int) -> bool:
+    def search(self, target):
         node = self.head
         while node:
             while node.right and node.right.val < target:
@@ -20,7 +20,7 @@ class Skiplist:
             node = node.down
         return False
     
-    def add(self, num: int) -> None:
+    def add(self, num):
         nodes = []
         node = self.head
         while node:
@@ -39,7 +39,7 @@ class Skiplist:
         if insert:
             self.head = Node(-1, None, self.head)
             
-    def erase(self, num: int) -> bool:
+    def erase(self, num):
         node = self.head
         flag = False
         while node:
@@ -50,7 +50,6 @@ class Skiplist:
                 flag = True
             node = node.down
         return flag
-
 
 # Your Skiplist object will be instantiated and called as such:
 # obj = Skiplist()
