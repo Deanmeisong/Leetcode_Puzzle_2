@@ -1,7 +1,8 @@
 class Solution(object):
     def reachNumber(self, target):
         target = abs(target)
-        k = s = 0
+        k = int(sqrt(target * 2))
+        s = k*(k+1)//2
         while s < target:
             k += 1
             s += k
