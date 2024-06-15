@@ -4,7 +4,8 @@
  */
 var reachNumber = function(target) {
     target = Math.abs(target);
-    let sum = 0; let k = 0;
+    let k = Math.floor(Math.sqrt(target*2));
+    let sum = getSum(k);
     while(sum < target) {
         sum += (++k);
     }
@@ -12,3 +13,7 @@ var reachNumber = function(target) {
     if(d % 2 == 0) return k;
     return k + 1 + (k%2);
 };
+
+var getSum = function(k) {
+    return (k+1)*k/2;
+}
