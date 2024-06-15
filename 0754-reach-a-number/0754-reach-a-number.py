@@ -1,5 +1,5 @@
-class Solution(object):
-    def reachNumber(self, target):
+class Solution:
+    def reachNumber(self, target: int) -> int:
         target = abs(target)
         k = int(sqrt(target * 2))
         s = k*(k+1)//2
@@ -9,4 +9,3 @@ class Solution(object):
         d = s - target
         if d % 2 == 0 : return k
         return k + 1 + (k+2) % 2
-        
