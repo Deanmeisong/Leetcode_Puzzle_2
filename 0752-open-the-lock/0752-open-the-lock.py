@@ -1,11 +1,10 @@
-class Solution:
-    def openLock(self, deadends: List[str], target: str) -> int:
-        def neighbour(code: str):
-            for i in range(4):
-                x = int(code[i])
-                for diff in [-1,1]:
-                    y = (x + diff + 10)%10
-                    yield code[:i]+str(y)+code[i+1:]
+class Solution(object):
+    def openLock(self, deadends, target):
+        """
+        :type deadends: List[str]
+        :type target: str
+        :rtype: int
+        """
         
         deadSet = set(deadends)
         if "0000" in deadSet: return -1
@@ -15,9 +14,15 @@ class Solution:
             for _ in range(len(q)):
                 curr = q.popleft()
                 if curr == target: return steps
-                for nei in neighbour(curr):
+                for nei in self.neighbour(curr):
                     if nei in deadSet: continue
                     deadSet.add(nei)
                     q.append(nei)
             steps += 1 
         return -1
+    def neighbour(self, code):
+        for i in range(4):
+            x = int(code[i])
+            for diff in [-1,1]:
+                y = (x + diff + 10)%10
+                yield code[:i]+str(y)+code[i+1:]
