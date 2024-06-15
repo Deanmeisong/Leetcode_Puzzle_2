@@ -1,9 +1,5 @@
-class Solution(object):
-    def monotoneIncreasingDigits(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+class Solution:
+    def monotoneIncreasingDigits(self, n: int) -> int:
         s = list(str(n))
         change = 0
         for i in range(len(s)-1, 0, -1):
@@ -14,4 +10,3 @@ class Solution(object):
         for i in range(change, len(s)):
             s[i] = '9'
         return int(''.join(s))
-       
