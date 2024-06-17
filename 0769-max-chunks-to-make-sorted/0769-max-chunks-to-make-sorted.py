@@ -1,5 +1,5 @@
-class Solution(object):
-    def maxChunksToSorted(self, arr):
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
         if not arr: return 0
         for i in range(1, len(arr)):
             arr[i] = max(arr[i-1], arr[i])
@@ -8,4 +8,3 @@ class Solution(object):
             if arr[i] == i:
                 count += 1 
         return count
-        
