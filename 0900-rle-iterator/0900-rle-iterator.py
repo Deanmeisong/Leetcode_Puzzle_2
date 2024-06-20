@@ -1,11 +1,12 @@
-class RLEIterator:
+class RLEIterator(object):
 
-    def __init__(self, encoding: List[int]):
+    def __init__(self, encoding):
         self.i = 0
         self.j = 0
         self.encoding = encoding
+        
 
-    def next(self, n: int) -> int:
+    def next(self, n):
         while self.i < len(self.encoding):
             if n > self.encoding[self.i] - self.j:
                 n -= self.encoding[self.i] - self.j
