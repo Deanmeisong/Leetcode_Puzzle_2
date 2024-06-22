@@ -11,12 +11,15 @@
  */
 class Solution {
 public:
-    int i = 0;
-    TreeNode* bstFromPreorder(vector<int>& A, int bound = INT_MAX) {
-        if(i == A.size() || A[i] > bound) return NULL;
+    TreeNode* dfs(vector<int>& A, int& i, int bound) {
+        if(i >= A.size() || A[i] > bound) return NULL;
         TreeNode* root = new TreeNode(A[i++]);
-        root->left = bstFromPreorder(A, root->val);
-        root->right = bstFromPreorder(A, bound);
+        root->left = dfs(A, i, root->val);
+        root->right = dfs(A, i, bound);
         return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& A) {
+        int i = 0;
+        return dfs(A, i, INT_MAX);
     }
 };
