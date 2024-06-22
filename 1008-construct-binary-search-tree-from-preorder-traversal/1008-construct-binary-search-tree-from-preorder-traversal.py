@@ -5,13 +5,11 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    i = 0
-    def bstFromPreorder(self, A, bound = float('inf')):
-        if self.i == len(A) or A[self.i] > bound:
-            return None
-        root = TreeNode(A[self.i])
-        self.i += 1
-        root.left = self.bstFromPreorder(A, root.val)
-        root.right = self.bstFromPreorder(A, bound)
+    def bstFromPreorder(self, A):
+        return self.dfs(A[::-1], float('inf'))
+    def dfs(self, A, bound):
+        if not A or A[-1] > bound: return None
+        root = TreeNode(A.pop())
+        root.left = self.dfs(A, root.val)
+        root.right = self.dfs(A, bound)
         return root
-        
