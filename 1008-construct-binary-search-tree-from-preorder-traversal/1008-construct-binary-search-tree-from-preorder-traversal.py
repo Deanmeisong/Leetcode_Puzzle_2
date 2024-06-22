@@ -6,9 +6,11 @@
 #         self.right = right
 class Solution:
     def bstFromPreorder(self, A: List[int]) -> Optional[TreeNode]:
-        if not A: return None
-        root = TreeNode(A[0])
-        i = bisect.bisect(A, A[0])
-        root.left = self.bstFromPreorder(A[1:i])
-        root.right = self.bstFromPreorder(A[i:])
-        return root
+        def helper(i, j):
+            if i == j: return None
+            node = TreeNode(A[i])
+            mid = bisect.bisect(A, A[i], i+1, j)
+            node.left = helper(i+1, mid)
+            node.right = helper(mid, j)
+            return node
+        return helper(0, len(A))
