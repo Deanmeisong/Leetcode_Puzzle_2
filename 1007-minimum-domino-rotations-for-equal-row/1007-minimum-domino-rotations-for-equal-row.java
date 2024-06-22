@@ -1,14 +1,17 @@
 class Solution {
-    public int minDominoRotations(int[] A, int[] B) {
-        int[] countA = new int[7]; int[] countB = new int[7]; int[] same = new int[7];
-        int n = A.length;
-        for(int i = 0; i <n; ++i) {
-            countA[A[i]]++;
-            countB[B[i]]++;
-            if(A[i] == B[i]) same[A[i]]++;
+public:
+    int minDominoRotations(vector<int>& A, vector<int>& B) {
+        int n = A.size();
+        for(int i = 0, a = 0, b = 0; i < n && (A[i] == A[0] || B[i] == A[0]); ++i) {
+            if(A[i] != A[0]) ++a;
+            if(B[i] != A[0]) ++b;
+            if(i == n-1) return min(a,b);
         }
-        for(int i = 1; i < 7; ++i)
-            if(countA[i] + countB[i] - same[i] == n) return n - Math.max(countA[i], countB[i]);
+        for(int i = 0, a = 0, b = 0; i < n && (A[i] == B[0] || B[i] == B[0]); ++i) {
+            if(A[i] != B[0]) ++a;
+            if(B[i] != B[0]) ++b;
+            if(i == n-1) return min(a,b);
+        }
         return -1;
     }
-}
+};
