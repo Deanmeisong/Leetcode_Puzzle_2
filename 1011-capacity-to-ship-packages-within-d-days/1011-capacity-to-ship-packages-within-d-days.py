@@ -1,11 +1,8 @@
 class Solution(object):
     def shipWithinDays(self, weights, days):
-        left, right = 0, 0
-        for w in weights:
-            left = max(left, w)
-            right += w
+        left, right = max(weights), sum(weights)
         while left < right:
-            mid = (right-left)/2 + left
+            mid = (right-left)//2 + left
             cur, need = 0, 1
             for w in weights:
                 if cur + w > mid:
