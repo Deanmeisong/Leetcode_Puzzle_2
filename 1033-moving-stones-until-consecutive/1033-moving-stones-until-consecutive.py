@@ -1,5 +1,5 @@
-class Solution:
-    def numMovesStones(self, a: int, b: int, c: int) -> List[int]:
+class Solution(object):
+    def numMovesStones(self, a, b, c):
         x, z = min(a, b, c), max(a, b, c)
         y = a+b+c-x-z
         mi = ma = 0
@@ -7,3 +7,4 @@ class Solution:
             mi = 1 if y-x < 3 or z-y < 3 else 2
             ma = z-x-2
         return [mi, ma]
+        
