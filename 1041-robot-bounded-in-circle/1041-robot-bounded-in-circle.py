@@ -1,5 +1,5 @@
-class Solution(object):
-    def isRobotBounded(self, instructions):
+class Solution:
+    def isRobotBounded(self, instructions: str) -> bool:
         k, dist = 0, [0]*4
         for c in instructions:
             if c == 'L': k = (k+1)%4
