@@ -5,31 +5,28 @@ public:
     }
     vector<int> assignBikes(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
         int minD = INT_MAX;
-        vector<pair<int,int>> disToPairs[1999];
-        
-        for(int worker = 0; worker < workers.size(); ++worker)
-            for(int bike = 0; bike < bikes.size(); ++bike) {
-                int distance = getD(workers[worker], bikes[bike]);
-                disToPairs[distance].push_back({worker, bike});
-                minD = min(minD, distance);
+        vector<pair<int,int>> bucket[1999];
+        for(int w=0; w < workers.size(); ++w)
+            for(int b=0; b < bikes.size(); ++b) {
+                int d = getD(workers[w], bikes[b]);
+                bucket[d].push_back({w, b});
+                minD = min(minD, d);
             }
-        
+        vector<int> bs(bikes.size(), false);
+        vector<int> ws(workers.size(), -1);
+        int count = 0;
         int curD = minD;
-        vector<int> bikeStatus(bikes.size(), false);
-        vector<int> workerStatus(workers.size(), -1);
-        int pairCount = 0;
-        
-        while(pairCount != workers.size()) {
-            for(auto [worker, bike] : disToPairs[curD]) {
-                if(workerStatus[worker] == -1 && bikeStatus[bike] == false) {
-                    bikeStatus[bike] = true;
-                    workerStatus[worker] = bike;
-                    pairCount++;
+        while(count < workers.size()) {
+            for(auto[w,b] : bucket[curD]) {
+                if(ws[w] == -1 && bs[b] == false) {
+                    ws[w] = b;
+                    bs[b] = true;
+                    ++count;
                 }
             }
             curD++;
         }
         
-        return workerStatus;
+        return ws;
     }
 };
