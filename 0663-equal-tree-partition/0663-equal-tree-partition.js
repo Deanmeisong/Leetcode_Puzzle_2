@@ -12,7 +12,7 @@
  */
 var checkEqualTree = function(root) {
     var seen = [];
-    var dfs = function(node) {
+    var dfs = (node) => {
         if(!node) return 0;
         const subSum = node.val + dfs(node.left) + dfs(node.right);
         seen.push(subSum);
@@ -20,8 +20,7 @@ var checkEqualTree = function(root) {
     }
     const total = dfs(root);
     seen.pop();
-    for(const s of seen) {
+    for(const s of seen)
         if(2*s == total) return true;
-    }
     return false;
 };
