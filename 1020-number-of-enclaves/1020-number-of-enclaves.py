@@ -12,9 +12,5 @@ class Solution:
             for j in range(n):
                 if grid[i][j] and (i == 0 or i == m-1 or j == 0 or j == n-1):
                     dfs(i, j)
-        count = 0
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j]:
-                    count += 1
-        return count
+
+        return sum (v for row in grid for v in row)
