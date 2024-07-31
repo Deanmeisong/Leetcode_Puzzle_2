@@ -1,11 +1,11 @@
 class Solution {
     public int missingElement(int[] nums, int k) {
-        int n = nums.length;
-        for(int i=1; i < n; ++i) {
-            int gap = nums[i]-nums[i-1]-1;
-            if(gap >= k) return nums[i-1]+k;
-            k -= gap;
+        int l = 0, r = nums.length-1;
+        while(l<r) {
+            int m = r-(r-l)/2;
+            if(nums[m]-nums[0]-m < k) l = m;
+            else r = m-1;
         }
-        return nums[n-1]+k;
+        return nums[0]+l+k;
     }
 }
